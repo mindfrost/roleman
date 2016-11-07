@@ -1,0 +1,16 @@
+{
+  "name": "laravel-roles/roleman",
+  "description": "RBAC model ",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Andrew Kuzmenko",
+      "email": "andrewkuzmenko@mail.ru"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "LaravelRoles\\Roleman\\": "src"
+    }
+  }
+}
