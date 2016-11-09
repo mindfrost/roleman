@@ -4,7 +4,7 @@ namespace LaravelRoles\Roleman\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Role extends Model
+class Permission extends Model
 {
     //
     protected $fillable = [
@@ -12,10 +12,10 @@ class Role extends Model
     ];
     public function users()
     {
-        return $this->belongsToMany('App\User');
+        return $this->hasManyThrough('App\User','LaravelRoles\Roleman\Models\Role');
     }
-    public function permissions()
+    public function roles()
     {
-        return $this->belongsToMany('LaravelRoles\Roleman\Models\Permission');
+        return $this->belongsToMany('LaravelRoles\Roleman\Models\Role');
     }
 }
