@@ -10,6 +10,15 @@ class Permission extends Model
     protected $fillable = [
         'name', 'title', 'description',
     ];
+    public $validate_rules=[
+        'name'=>'unique:permissions'
+    ];
+    public $validate_rules_translit=[
+        'name.unique'=>"Разрешение с таким именем уже существует"
+    ];
+    public function validate($arr){
+        return \Validator::make($arr,$this->validate_rules,$this->validate_rules_translit);
+    }
     public function users()
     {
         return $this->hasManyThrough('App\User','LaravelRoles\Roleman\Models\Role');

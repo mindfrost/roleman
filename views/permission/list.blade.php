@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Роли</div>
+                    <div class="panel-heading">Разрешения</div>
 
                     <div class="panel-body">
                         <table class="table table-hover table-striped">
@@ -16,15 +16,15 @@
                             </thead>
 
                             <tbody>
-                            @foreach($users as $user)
+                            @foreach($permissions as $permission)
                                 <tr>
-                                    <td>#{{$user->id}}</td>
-                                    <td>{{$user->name}}</td>
+                                    <td>#{{$permission->id}}</td>
+                                    <td>{{$permission->name}}</td>
                                     <td>
-                                        <a href="{{route('edit_user',$user->id)}}">
+                                        <a href="{{route('edit_permission',$permission->id)}}">
                                             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                                         </a>
-                                        <a href="{{route('delete_user',$user->id)}}">
+                                        <a href="{{route('delete_permission',$permission->id)}}">
                                             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                         </a>
                                     </td>
@@ -32,7 +32,7 @@
                             @endforeach
                             <tr>
 
-                                <a href="{{route('edit_user',0)}}" class="btn btn-success">
+                                <a href="{{route('edit_permission',0)}}" class="btn btn-success">
                                     <span class="glyphicon glyphicon-open"></span> Создать
                                 </a>
                             </tr>
