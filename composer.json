@@ -23,6 +23,9 @@
 
     "post-package-install": [
       "php artisan migrate --path=vendor/laravel-roles/roleman/database/migrations"
+    ],
+    "post-install": [
+      "php artisan migrate --path=vendor/laravel-roles/roleman/database/migrations"
     ]
   },
 
