@@ -28,8 +28,14 @@ class RoleController extends Controller
     public function edit($id)
     {
         $role=Role::findOrNew($id);
+
+
+//       var_dump($role->parent_permissions);
+//        var_dump($parents->toArray());
+//        return;
         $permissions=Permission::all();
-        return view('roleman::role.edit',['role'=>$role,'permissions'=>$permissions]);
+        $roles=Role::all();
+        return view('roleman::role.edit',['role'=>$role,'permissions'=>$permissions,'roles'=>$roles]);
     }
     public function store(Request $request,$id)
     {
@@ -60,6 +66,19 @@ class RoleController extends Controller
         }else
         {
             $role->detachPermission($request->input('permission'));
+        }
+        return redirect()->route('edit_role',$role->id)->with('status','Изменения были сохранены');
+    }
+    public function parents(Request $request,$id) {
+        $role=Role::find($id);
+        $action=$request->input('action');
+
+        if($action=="attach")
+        {
+            $role->attachRole($request->input('parent_role_id'));
+        }else
+        {
+            $role->detachRole($request->input('parent_role_id'));
         }
         return redirect()->route('edit_role',$role->id)->with('status','Изменения были сохранены');
     }

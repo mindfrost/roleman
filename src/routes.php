@@ -22,6 +22,7 @@ Route::group(array('prefix'=>'roleman','namespace' => 'LaravelRoles\Roleman\Cont
         Route::get('/delete/{id}', ['as' => 'delete_role','uses' => 'RoleController@delete']);
         Route::get('/edit/{id}', ['as' => 'edit_role','uses' => 'RoleController@edit']);
         Route::post('/permissions/{id}', ['as' => 'edit_role_permissions','uses' => 'RoleController@permissions']);
+        Route::post('/parents/{id}', ['as' => 'edit_role_parents','uses' => 'RoleController@parents']);
         Route::post('/store/{id}', ['as' => 'store_role','uses' => 'RoleController@store']);
     });
     Route::group(array('prefix'=>'permission'), function() {

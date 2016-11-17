@@ -43,6 +43,11 @@ trait User
         $res=$this->permissions__()->get()->groupBy(function ($item, $key) {
             return $item['id'];
         })->map(function($item){return $item[0];});
+        foreach($this->roles as $role){
+            if($role-> all_permissions){
+                $res=$res->merge( $role->all_permissions);
+            }
+        }
 
         return $res;
     }

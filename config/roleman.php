@@ -5,4 +5,6 @@
  * Date: 07.11.16
  * Time: 16:41
  */
-return ['vendor'=>"Roleman"];
+return ['vendor'=>"Roleman",
+'Form'=>"Collective\Html\FormFacade"
+];

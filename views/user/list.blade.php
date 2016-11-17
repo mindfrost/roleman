@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Роли</div>
+                    <div class="panel-heading">Пользователи</div>
 
                     <div class="panel-body">
                         <table class="table table-hover table-striped">
@@ -32,7 +32,7 @@
                             @endforeach
                             <tr>
 
-                                <a href="{{route('edit_user',0)}}" class="btn btn-success">
+                                <a style="display:none;" href="{{route('edit_user',0)}}" class="btn btn-success">
                                     <span class="glyphicon glyphicon-open"></span> Создать
                                 </a>
                             </tr>

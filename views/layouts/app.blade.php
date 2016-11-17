@@ -23,7 +23,12 @@
         .fa-btn {
             margin-right: 6px;
         }
+        h5{
+            font-weight: bold;
+            background: rgba(83, 193, 246, 0.15);
+        }
     </style>
+
 </head>
 <body id="app-layout">
     <nav class="navbar navbar-default navbar-static-top">

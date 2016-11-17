@@ -17,16 +17,5 @@
     "php": ">=5.4.0",
     "laravelcollective/html": "~5.0"
   },
-
-  "scripts": {
-
-    "post-install": [
-      "php artisan migrate --path=vendor/laravel-roles/roleman/database/migrations"
-    ],
-    "post-update": [
-      "php artisan migrate --path=vendor/laravel-roles/roleman/database/migrations"
-    ]
-  },
-
   "minimum-stability": "dev"
 }
