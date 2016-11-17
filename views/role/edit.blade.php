@@ -1,7 +1,7 @@
 @extends('roleman::layouts.app')
 
 @section('content')
-    {{($form=config('roleman.Form'))?"":""}}
+
 <div class="container">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
@@ -13,14 +13,14 @@
                     <div class="row">
 
 
-                    {!! $form::model($role,array('method'=>'post','route'=>$role->id?["store_role",$role->id]:["store_role",0],'class'=>'form-horizontal','role'=>'form')) !!}
-{{--                    {!! $form::hidden('user_id',Request::input('user_id')?Request::input('user_id'):Auth::user()->id) !!}--}}
+                    {!! Form::model($role,array('method'=>'post','route'=>$role->id?["store_role",$role->id]:["store_role",0],'class'=>'form-horizontal','role'=>'form')) !!}
+{{--                    {!! Form::hidden('user_id',Request::input('user_id')?Request::input('user_id'):Auth::user()->id) !!}--}}
                     <div class="col-lg-10">
                         <div class="form-group @if ($errors->has('name')) has-error  @endif">
-                            {{ $form::label('name', 'Имя роли:', array('class' => 'control-label col-sm-4')) }}
+                            {{ Form::label('name', 'Имя роли:', array('class' => 'control-label col-sm-4')) }}
                             <div class="col-sm-8">
-                                {{$form::text('name',  Request::old('name'), ['class' => 'form-control','placeholder'=>'Имя роли..']) }}
-                                {{--            {{ $form::text('name',, ['class' => 'form-control','placeholder'=>'Название компании']) }}--}}
+                                {{Form::text('name',  Request::old('name'), ['class' => 'form-control','placeholder'=>'Имя роли..']) }}
+                                {{--            {{ Form::text('name',, ['class' => 'form-control','placeholder'=>'Название компании']) }}--}}
                                 @if ($errors->has('name'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('name') }}</strong>
@@ -29,10 +29,10 @@
                             </div>
                         </div>
                         <div class="form-group @if ($errors->has('title')) has-error  @endif">
-                            {{ $form::label('title', 'Отображаемое имя роли:', array('class' => 'control-label col-sm-4')) }}
+                            {{ Form::label('title', 'Отображаемое имя роли:', array('class' => 'control-label col-sm-4')) }}
                             <div class="col-sm-8">
-                                {{$form::text('title',  Request::old('title'), ['class' => 'form-control','placeholder'=>'Отображаемое имя роли..']) }}
-                                {{--            {{ $form::text('name',, ['class' => 'form-control','placeholder'=>'Название компании']) }}--}}
+                                {{Form::text('title',  Request::old('title'), ['class' => 'form-control','placeholder'=>'Отображаемое имя роли..']) }}
+                                {{--            {{ Form::text('name',, ['class' => 'form-control','placeholder'=>'Название компании']) }}--}}
                                 @if ($errors->has('title'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('title') }}</strong>
@@ -41,10 +41,10 @@
                             </div>
                         </div>
                         <div class="form-group @if ($errors->has('description')) has-error  @endif">
-                            {{ $form::label('description', 'Описание роли:', array('class' => 'control-label col-sm-4')) }}
+                            {{ Form::label('description', 'Описание роли:', array('class' => 'control-label col-sm-4')) }}
                             <div class="col-sm-8">
-                                {{$form::text('description',  Request::old('description'), ['class' => 'form-control','placeholder'=>'Описание роли..']) }}
-                                {{--            {{ $form::text('name',, ['class' => 'form-control','placeholder'=>'Название компании']) }}--}}
+                                {{Form::text('description',  Request::old('description'), ['class' => 'form-control','placeholder'=>'Описание роли..']) }}
+                                {{--            {{ Form::text('name',, ['class' => 'form-control','placeholder'=>'Название компании']) }}--}}
                                 @if ($errors->has('description'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('description') }}</strong>
@@ -53,16 +53,16 @@
                             </div>
                         </div>
                     </div>
-                    {{ $form::submit('Сохранить',['class'=>'btn btn-primary btn-md']) }}
+                    {{ Form::submit('Сохранить',['class'=>'btn btn-primary btn-md']) }}
 
-                    {!!$form::close()!!}
+                    {!!Form::close()!!}
                     </div>
                     <div class="add-permission-form" style="display: none;">
-                        {!! $form::open(array('method'=>'post',"url"=>"/user/$role->id")) !!}
+                        {!! Form::open(array('method'=>'post',"url"=>"/user/$role->id")) !!}
 
-                        {!! $form::hidden('user_id',$role->id) !!}
+                        {!! Form::hidden('user_id',$role->id) !!}
                         <div class="form-group @if ($errors->has('role')) has-error  @endif">
-                            {{ $form::label('role', 'Назначить\Снять:', array('class' => 'control-label col-sm-4')) }}
+                            {{ Form::label('role', 'Назначить\Снять:', array('class' => 'control-label col-sm-4')) }}
                             <div class="col-sm-8">
 
                                 Назначить: <input   name="action" value="attach" type="radio"> <br>
@@ -70,7 +70,7 @@
                             </div>
                         </div>
                         <div class="form-group @if ($errors->has('role')) has-error  @endif">
-                            {{ $form::label('role', 'Разрешение:', array('class' => 'control-label col-sm-4')) }}
+                            {{ Form::label('role', 'Разрешение:', array('class' => 'control-label col-sm-4')) }}
                             <div class="col-sm-8">
 
                                 <select class="form-control" name="role" id="role" >
@@ -78,7 +78,7 @@
                                         <option value="{{$permission->id}}">{{$permission->title}}</option>
                                     @endforeach
                                 </select>
-                                {{--            {{ $form::text('name',, ['class' => 'form-control','placeholder'=>'Название компании']) }}--}}
+                                {{--            {{ Form::text('name',, ['class' => 'form-control','placeholder'=>'Название компании']) }}--}}
                                 @if ($errors->has('role'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('role') }}</strong>
@@ -86,8 +86,8 @@
                                 @endif
                             </div>
                         </div>
-                        {{ $form::submit('Отправить',['class'=>'btn btn-primary btn-md']) }}
-                        {!! $form::close() !!}
+                        {{ Form::submit('Отправить',['class'=>'btn btn-primary btn-md']) }}
+                        {!! Form::close() !!}
                     </div>
                     <h5>Список разрешений роли:</h5>
                     <table class="table table-hover table-striped">
@@ -104,14 +104,14 @@
                             <td>{{$permission->name}}</td>
                             <td>{{$permission->title}}</td>
                             <td>
-                                {!! $form::open(array('method'=>'post',"route"=>["edit_role_permissions",$role->id])) !!}
-                                {!! $form::hidden('role_id',$role->id) !!}
-                                {!! $form::hidden('action','detach') !!}
-                                {!! $form::hidden('permission',$permission->id) !!}
+                                {!! Form::open(array('method'=>'post',"route"=>["edit_role_permissions",$role->id])) !!}
+                                {!! Form::hidden('role_id',$role->id) !!}
+                                {!! Form::hidden('action','detach') !!}
+                                {!! Form::hidden('permission',$permission->id) !!}
 
-                                {{ $form::submit('Снять',['class'=>'btn btn-danger btn-sm']) }}
+                                {{ Form::submit('Снять',['class'=>'btn btn-danger btn-sm']) }}
 
-                                {!! $form::close() !!}
+                                {!! Form::close() !!}
 
                             </td>
                         </tr>
@@ -126,9 +126,9 @@
                         @endforeach
                         </tbody>
                     </table>
-                    {!! $form::open(array('method'=>'post',"route"=>["edit_role_permissions",$role->id])) !!}
-                    {!! $form::hidden('role_id',$role->id) !!}
-                    {!! $form::hidden('action','attach') !!}
+                    {!! Form::open(array('method'=>'post',"route"=>["edit_role_permissions",$role->id])) !!}
+                    {!! Form::hidden('role_id',$role->id) !!}
+                    {!! Form::hidden('action','attach') !!}
                     <div class="form-group @if ($errors->has('permission')) has-error  @endif">
                         <div class="col-sm-4">
 
@@ -137,7 +137,7 @@
                                     <option value="{{$permission->id}}">{{$permission->title}}</option>
                                 @endforeach
                             </select>
-                            {{--            {{ $form::text('name',, ['class' => 'form-control','placeholder'=>'Название компании']) }}--}}
+                            {{--            {{ Form::text('name',, ['class' => 'form-control','placeholder'=>'Название компании']) }}--}}
                             @if ($errors->has('permission'))
                                 <span class="help-block">
                                         <strong>{{ $errors->first('permission') }}</strong>
@@ -145,8 +145,8 @@
                             @endif
                         </div>
                     </div>
-                    {{ $form::submit('Добавить разрешение',['class'=>'btn btn-primary btn-md']) }}
-                    {!! $form::close() !!}
+                    {{ Form::submit('Добавить разрешение',['class'=>'btn btn-primary btn-md']) }}
+                    {!! Form::close() !!}
 
                     <h5>Список наследуемых ролей:</h5>
                     <table class="table table-hover table-striped">
@@ -163,23 +163,23 @@
                                 <td>{{$r2->name}}</td>
                                 <td>{{$r2->title}}</td>
                                 <td>
-                                    {!! $form::open(array('method'=>'post',"route"=>["edit_role_parents",$role->id])) !!}
-                                    {!! $form::hidden('role_id',$role->id) !!}
-                                    {!! $form::hidden('action','detach') !!}
-                                    {!! $form::hidden('parent_role_id',$r2->id) !!}
+                                    {!! Form::open(array('method'=>'post',"route"=>["edit_role_parents",$role->id])) !!}
+                                    {!! Form::hidden('role_id',$role->id) !!}
+                                    {!! Form::hidden('action','detach') !!}
+                                    {!! Form::hidden('parent_role_id',$r2->id) !!}
 
-                                    {{ $form::submit('Снять',['class'=>'btn btn-danger btn-sm']) }}
+                                    {{ Form::submit('Снять',['class'=>'btn btn-danger btn-sm']) }}
 
-                                    {!! $form::close() !!}
+                                    {!! Form::close() !!}
 
                                 </td>
                             </tr>
                         @endforeach
                         </tbody>
                     </table>
-                    {!! $form::open(array('method'=>'post',"route"=>["edit_role_parents",$role->id])) !!}
-                    {!! $form::hidden('role_id',$role->id) !!}
-                    {!! $form::hidden('action','attach') !!}
+                    {!! Form::open(array('method'=>'post',"route"=>["edit_role_parents",$role->id])) !!}
+                    {!! Form::hidden('role_id',$role->id) !!}
+                    {!! Form::hidden('action','attach') !!}
                     <div class="form-group @if ($errors->has('parent_role_id')) has-error  @endif">
                         <div class="col-sm-4">
 
@@ -190,7 +190,7 @@
                                     @endif
                                 @endforeach
                             </select>
-                            {{--            {{ $form::text('name',, ['class' => 'form-control','placeholder'=>'Название компании']) }}--}}
+                            {{--            {{ Form::text('name',, ['class' => 'form-control','placeholder'=>'Название компании']) }}--}}
                             @if ($errors->has('parent_role_id'))
                                 <span class="help-block">
                                         <strong>{{ $errors->first('parent_role_id') }}</strong>
@@ -198,8 +198,8 @@
                             @endif
                         </div>
                     </div>
-                    {{ $form::submit('Добавить роль',['class'=>'btn btn-primary btn-md']) }}
-                    {!! $form::close() !!}
+                    {{ Form::submit('Добавить роль',['class'=>'btn btn-primary btn-md']) }}
+                    {!! Form::close() !!}
 
                 </div>
             </div>

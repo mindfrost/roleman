@@ -31,7 +31,10 @@ class ServiceProvider extends LServiceProvider {
 
     public function register()
     {
-
+        $this->app->register('Collective\Html\HtmlServiceProvider');
+        $loader =\Illuminate\Foundation\AliasLoader::getInstance();
+        $loader->alias('Form', 'Collective\Html\FormFacade');
+        $loader->alias('Html', 'Collective\Html\HtmlFacade');
     }
 
 }
