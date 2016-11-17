@@ -31,7 +31,7 @@ class UserController extends Controller
     public function edit(Request $request,$id)
     {
         $user=User::findOrNew($id);
-        $roles=\App\Role::all();
+        $roles=Role::all();
 //        var_dump($user->permissions);
 //        return;
         return view('roleman::user.edit',['user'=>$user,'roles'=>$roles]);

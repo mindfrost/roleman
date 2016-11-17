@@ -33,7 +33,8 @@ trait User
 
             ->join('permissions',"permission_id","=","permissions.id")
 
-            ->select('permissions.*')->groupBy("role_user.user_id")->groupBy("role_user.role_id")->groupBy("permissions.id");
+            ->select('permissions.*');
+//        ->groupBy("role_user.user_id")->groupBy("role_user.role_id")->groupBy("permissions.id");
 
 
         return $res;
