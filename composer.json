@@ -18,9 +18,10 @@
     "illuminate/console": "~5.0",
     "illuminate/support": "~5.0"
   },
-  "post-package-update": "php artisan vendor:publish",
-  "scripts": {
 
+  "scripts": {
+    "post-package-update": "php artisan vendor:publish",
+    "post-update": "php artisan vendor:publish",
     "post-package-install": [
       "php artisan migrate --path=vendor/laravel-roles/roleman/database/migrations"
     ],
