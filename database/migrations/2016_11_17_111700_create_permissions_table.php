@@ -20,7 +20,7 @@ class CreatePermissionsTable extends Migration
             $table->integer('accessor_id')->default(0);
             $table->timestamps();
 
-            $table->foreign('accessor_id')->references('id')->on('accessors')->onDelete('cascade');
+//            $table->foreign('accessor_id')->references('id')->on('accessors')->onDelete('cascade');
         });
     }
 
