@@ -18,12 +18,11 @@
   },
 
   "scripts": {
-    "post-package-update": "php artisan vendor:publish",
-    "post-update": "php artisan vendor:publish",
-    "post-package-install": [
+
+    "post-install": [
       "php artisan migrate --path=vendor/laravel-roles/roleman/database/migrations"
     ],
-    "post-install": [
+    "post-update": [
       "php artisan migrate --path=vendor/laravel-roles/roleman/database/migrations"
     ]
   },
