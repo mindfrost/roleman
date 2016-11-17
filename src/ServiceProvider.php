@@ -18,7 +18,8 @@ class ServiceProvider extends LServiceProvider {
         $this->publishes([__DIR__ . '/../config/' => config_path() . "/"], 'config');
 //        $this->publishes([__DIR__ . '/../public/' => public_path() . "/vendor/call-request/"], 'assets');
         $this->publishes([__DIR__ . '/../database/' => base_path("database")], 'database');
-
+        $this->publishes([__DIR__ . '/../views/'=> resource_path('views/vendor/roleman')], 'database');
+      ;
         // Routing
         if (! $this->app->routesAreCached()) {
             include __DIR__ . '/routes.php';
