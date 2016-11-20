@@ -3,6 +3,7 @@ namespace LaravelRoles\Roleman\Traits;
 use LaravelRoles\Roleman\Models;
 trait User
 {
+    use \LaravelRoles\Roleman\Traits\AttributeCache;
     public function manyThroughMany($related, $through, $firstKey, $secondKey, $pivotKey)
     {
         $model = new $related;

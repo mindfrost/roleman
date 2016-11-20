@@ -27,9 +27,31 @@ class ServiceProvider extends LServiceProvider {
 
         //Указывам где искать вью и какой неймспейс им задать
         $this->loadViewsFrom(__DIR__.'/../views', 'roleman');
+        // Register blade directives
+        $this->bladeDirectives();
+    }
+    private function bladeDirectives()
+    {
+        // Call to Roleman::hasRole
+        \Blade::directive('role', function($expression) {
+            return "<?php if (Auth::user->hasRole{$expression}) : ?>";
+        });
+
+        \Blade::directive('endrole', function($expression) {
+            return "<?php endif; // Roleman::hasRole ?>";
+        });
+
+        // Call to Roleman::hasPermission
+        \Blade::directive('permission', function($expression) {
+            return "<?php if (\\Auth::user->hasPermission{$expression}) : ?>";
+        });
+
+        \Blade::directive('endpermission', function($expression) {
+            return "<?php endif; // Roleman::hasPermission ?>";
+        });
+
 
     }
-
     public function register()
     {
         $this->app->register('Collective\Html\HtmlServiceProvider');

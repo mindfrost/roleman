@@ -9,15 +9,18 @@ use Illuminate\Validation\Validator;
 class Role extends Model
 {
     //
+    use \LaravelRoles\Roleman\Traits\AttributeCache;
     protected $fillable = [
         'name', 'title', 'description',
     ];
+    protected $remember=['parent_permissions'];
     public $validate_rules=[
         'name'=>'unique:roles'
     ];
     public $validate_rules_translit=[
         'name.unique'=>"Роль с таким именем уже существует"
     ];
+
     public function validate($arr){
         return \Validator::make($arr,$this->validate_rules,$this->validate_rules_translit);
     }

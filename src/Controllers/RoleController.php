@@ -30,7 +30,8 @@ class RoleController extends Controller
         $role=Role::findOrNew($id);
 
 
-//       var_dump($role->parent_permissions);
+//       $role->parent_permissions;
+//        var_dump($role->parent_permissions);
 //        var_dump($parents->toArray());
 //        return;
         $permissions=Permission::all();
