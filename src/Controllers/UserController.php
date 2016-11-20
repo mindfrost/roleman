@@ -32,8 +32,8 @@ class UserController extends Controller
     {
         $user=User::findOrNew($id);
         $roles=Role::all();
-        var_dump($user->hasAccess('can_read_roles',$roles));
-        return;
+//        var_dump($user->hasAccess('can_read_roles',$roles));
+//        return;
         return view('roleman::user.edit',['user'=>$user,'roles'=>$roles]);
     }
     public function store(Request $request,$id)
