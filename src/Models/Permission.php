@@ -28,4 +28,7 @@ class Permission extends Model
     {
         return $this->belongsToMany('LaravelRoles\Roleman\Models\Role');
     }
+    public function accessor(){
+        return $this->belongsTo('LaravelRoles\Roleman\Models\Accessor');
+    }
 }

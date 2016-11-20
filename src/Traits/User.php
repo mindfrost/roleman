@@ -88,7 +88,39 @@ trait User
     }
     public function hasPermission($permission)
     {
-        $has=$this->permissions->where('name',$permission)->first();
+        if(gettype ($permission)=="integer")
+        {
+            $has=$this->permissions->where('id',$permission)->first();
+
+
+        }else
+        {
+            $has=$this->permissions->where('name',$permission)->first();
+
+        }
+
         return $has?true:false;
+    }
+    public function hasAccess($permission,$object){
+        $can=false;
+        $can=$this->hasPermission($permission);
+        if(!$can){
+            return false;
+        }
+        $permissionObject=null;
+        if(gettype ($permission)=="integer")
+        {
+            $permissionObject=$this->permissions->where('id',$permission)->first();
+
+
+        }else
+        {
+            $permissionObject=$this->permissions->where('name',$permission)->first();
+
+        }
+        $can=$permissionObject->accessor->Check($this,$object);
+
+//        $can=$can&&$permission->
+        return $can;
     }
 }
