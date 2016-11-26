@@ -14,6 +14,7 @@ class CreateAccessorsTable extends Migration
     {
         Schema::create('accessors', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
             $table->string('classname');
             $table->timestamps();
         });

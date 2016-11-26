@@ -9,7 +9,7 @@ class Permission extends Model
     //
     use \LaravelRoles\Roleman\Traits\AttributeCache;
     protected $fillable = [
-        'name', 'title', 'description',
+        'name', 'title', 'description','accessor_id'
     ];
     public $validate_rules=[
         'name'=>'unique:permissions'
@@ -29,6 +29,7 @@ class Permission extends Model
         return $this->belongsToMany('LaravelRoles\Roleman\Models\Role');
     }
     public function accessor(){
-        return $this->belongsTo('LaravelRoles\Roleman\Models\Accessor');
+        return $this->hasOne('LaravelRoles\Roleman\Models\Accessor','id','accessor_id');
     }
+
 }

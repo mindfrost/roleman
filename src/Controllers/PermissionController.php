@@ -9,6 +9,7 @@ namespace LaravelRoles\Roleman\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use LaravelRoles\Roleman\Models\Accessor;
 use LaravelRoles\Roleman\Models\Permission;
 use LaravelRoles\Roleman\Models\Role;
 class PermissionController extends Controller
@@ -29,7 +30,11 @@ class PermissionController extends Controller
     {
 
         $permission=Permission::findOrNew($id);
-        return view('roleman::permission.edit',['permission'=>$permission]);
+//        $a=$permission->accessor;
+//       $permission->accessor->pid=$id;
+//        var_dump($a);
+        $accessors=Accessor::all();
+        return view('roleman::permission.edit',['permission'=>$permission,'accessors'=>$accessors]);
     }
     public function store(Request $request,$id)
     {

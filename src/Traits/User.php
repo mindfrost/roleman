@@ -118,7 +118,8 @@ trait User
             $permissionObject=$this->permissions->where('name',$permission)->first();
 
         }
-        $can=$permissionObject->accessor->Check($this,$object);
+        $permissionObject->accessor->pid=$permission;
+        $can=$permissionObject->accessor->Check($this,$object,$permissionObject);
 
 //        $can=$can&&$permission->
         return $can;

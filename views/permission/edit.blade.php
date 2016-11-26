@@ -51,6 +51,24 @@
                                 @endif
                             </div>
                         </div>
+                        <div class="form-group @if ($errors->has('accessor_id')) has-error  @endif">
+                            {{ Form::label('accessor_id', 'Класс-обработчик:', array('class' => 'control-label col-sm-4')) }}
+                            <div class="col-sm-8">
+                                {{--                                {{Form::text('classname',  Request::old('classname'), ['class' => 'form-control','placeholder'=>'Имя разрешения..']) }}--}}
+                                <select class="form-control" name="accessor_id" id="accessor_id" value="{{$permission->accessor_id}}" >
+                                    @foreach($accessors as $accessor)
+                                        <option value="{{$accessor->id}}" {{($permission->accessor_id==$accessor->id)?"selected":""}}>{{$accessor->name}}</option>
+
+                                    @endforeach
+                                </select>
+                                {{--            {{ Form::text('name',, ['class' => 'form-control','placeholder'=>'Название компании']) }}--}}
+                                @if ($errors->has('accessor_id'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('accessor_id') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
                     </div>
                     {{ Form::submit('Сохранить',['class'=>'btn btn-primary btn-md']) }}
 

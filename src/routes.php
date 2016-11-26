@@ -31,5 +31,11 @@ Route::group(array('prefix'=>'roleman','namespace' => 'LaravelRoles\Roleman\Cont
         Route::get('/edit/{id}', ['as' => 'edit_permission','uses' => 'PermissionController@edit']);
         Route::post('/store/{id}', ['as' => 'store_permission','uses' => 'PermissionController@store']);
     });
+    Route::group(array('prefix'=>'accessor'), function() {
+        Route::any('/', ['as' => 'index_accessor','uses' => 'AccessorController@index']);
+        Route::get('/delete/{id}', ['as' => 'delete_accessor','uses' => 'AccessorController@delete']);
+        Route::get('/edit/{id}', ['as' => 'edit_accessor','uses' => 'AccessorController@edit']);
+        Route::post('/store/{id}', ['as' => 'store_accessor','uses' => 'AccessorController@store']);
+    });
 
 });

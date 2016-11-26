@@ -4,9 +4,22 @@ namespace LaravelRoles\Roleman\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use  Illuminate\Support\ClassLoader;
+use Illuminate\Support\Facades\Storage;
 class Accessor extends Model
 {
+    protected $fillable = [
+        'classname','name'
+    ];
     //
+    public $validate_rules=[
+        'name'=>'unique:accessors'
+    ];
+    public $validate_rules_translit=[
+        'name.unique'=>"Accessor с таким именем уже существует"
+    ];
+    public function validate($arr){
+        return \Validator::make($arr,$this->validate_rules,$this->validate_rules_translit);
+    }
     private function load_default_classes() {
         $dir=__DIR__ . '/../../Accessors';
         ClassLoader::addDirectories($dir);
@@ -27,7 +40,7 @@ class Accessor extends Model
         }
         return false;
     }
-    public function Check(\App\User $user,$object)
+    public function Check(\App\User $user,$object,$permission)
     {
 
             $class=$this->classname;
@@ -42,15 +55,27 @@ class Accessor extends Model
 
         }
 
-        $result=$accessor->handle($user,$this->permission,$object);
+        $result=$accessor->handle($user,$permission,$object);
         return $result;
     }
-    public function permission()
+    public function permissions()
     {
-        return $this->hasOne('LaravelRoles\Roleman\Models\Permission')->withPivot();
+        return $this->hasMany('LaravelRoles\Roleman\Models\Permission');
     }
     public static function getAvailableClasses()
     {
+        $directory= base_path("app/Accessors");
+        $files = scandir($directory);
+        $res=collect();
+        foreach ($files as $k=>$file) {
+           if(strpos($file,".php")!==false) {
+               $file=str_replace(".php","",$file);
+               if($file!="Accessor"){
+                   $res->push($file);
+               }
 
+            }
+        }
+        return $res;
     }
 }
