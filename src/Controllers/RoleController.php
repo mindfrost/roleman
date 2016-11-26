@@ -30,9 +30,10 @@ class RoleController extends Controller
         $role=Role::findOrNew($id);
 
 
-//       $role->parent_permissions;
-//        var_dump($role->parent_permissions);
-//        var_dump($parents->toArray());
+//    $permission=$role->permissions->first();
+//        if($permission)
+//        var_dump($permission->pivot->type);
+
 //        return;
         $permissions=Permission::all();
         $roles=Role::all();
@@ -60,10 +61,11 @@ class RoleController extends Controller
     public function permissions(Request $request,$id) {
         $role=Role::find($id);
         $action=$request->input('action');
+        $type=$request->input('type')?$request->input('type'):0;
 
         if($action=="attach")
         {
-            $role->attachPermission($request->input('permission'));
+            $role->attachPermission($request->input('permission'),$type);
         }else
         {
             $role->detachPermission($request->input('permission'));
@@ -72,11 +74,12 @@ class RoleController extends Controller
     }
     public function parents(Request $request,$id) {
         $role=Role::find($id);
+        $type=$request->input('type')?$request->input('type'):0;
         $action=$request->input('action');
 
         if($action=="attach")
         {
-            $role->attachRole($request->input('parent_role_id'));
+            $role->attachRole($request->input('parent_role_id'),$type);
         }else
         {
             $role->detachRole($request->input('parent_role_id'));

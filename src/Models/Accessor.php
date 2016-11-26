@@ -47,6 +47,10 @@ class Accessor extends Model
     }
     public function permission()
     {
-        return $this->hasOne('LaravelRoles\Roleman\Models\Permission');
+        return $this->hasOne('LaravelRoles\Roleman\Models\Permission')->withPivot();
+    }
+    public static function getAvailableClasses()
+    {
+
     }
 }

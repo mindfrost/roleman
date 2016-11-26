@@ -9,11 +9,11 @@ use Illuminate\Validation\Validator;
 class Role extends Model
 {
     //
-    use \LaravelRoles\Roleman\Traits\AttributeCache;
+//    use \LaravelRoles\Roleman\Traits\AttributeCache;
     protected $fillable = [
         'name', 'title', 'description',
     ];
-    protected $remember=['parent_permissions'];
+    protected $remember=['parent_permissions','all_permissons'];
     public $validate_rules=[
         'name'=>'unique:roles'
     ];
@@ -53,7 +53,7 @@ class Role extends Model
 
         return $has?true:false;
     }
-    public function attachPermission($permission=null)
+    public function attachPermission($permission=null,$type=0)
     {
         if(!$permission)
         {
@@ -61,7 +61,7 @@ class Role extends Model
         }
         if(!$this->hasPermission(intval($permission)))
         {
-            $this->permissions()->attach($permission);
+            $this->permissions()->attach($permission,['type'=>$type]);
         }
 
     }
@@ -73,7 +73,7 @@ class Role extends Model
         }
         $this->permissions()->detach($permission);
     }
-    public function attachRole($Role=null)
+    public function attachRole($Role=null,$type=0)
     {
         if(!$Role)
         {
@@ -81,7 +81,7 @@ class Role extends Model
         }
         if(!$this->hasRole(intval($Role)))
         {
-            $this->roles()->attach($Role);
+            $this->roles()->attach($Role,['type'=>$type]);
         }
 
     }
@@ -99,11 +99,11 @@ class Role extends Model
     }
     public function permissions()
     {
-        return $this->belongsToMany('LaravelRoles\Roleman\Models\Permission');
+        return $this->belongsToMany('LaravelRoles\Roleman\Models\Permission')->withPivot(['type']);
     }
     public function roles(){
         return $this->belongsToMany('LaravelRoles\Roleman\Models\Role','role_role','role_id','parent_role_id')
-            ->wherePivot('parent_role_id','<>',$this->id);
+            ->wherePivot('parent_role_id','<>',$this->id)->withPivot('type');
 //            ->where('parent_role_id',"!=",$this->id);
     }
     public function allRoles(){
@@ -119,8 +119,32 @@ class Role extends Model
         {
 
             $parent_=$parent->permissions->groupBy(function ($item, $key) {
+
                 return $item['id'];
-            })->map(function($item){return $item[0];});
+            })->map(function($item){
+                    return $item[0];
+            })->reject(function ($item, $key)use($parent) {
+                $exclude=($item->pivot->type==2)?true:false;
+                switch($parent->pivot->type){
+                    case 0:
+                        //public
+                        break;
+                    case 1:
+                        //protected
+                        if($item->pivot->type==0){
+                            //public >> protected
+                            $item->pivot->type=1;
+                        }
+                        break;
+                    case 2:
+                        //private
+                        //publc,protected >>private
+                        $item->pivot->type=2;
+                        break;
+                }
+
+                return $exclude;
+            });
 
             if(!$perms->count())
             {

@@ -95,6 +95,7 @@
                         <th>id</th>
                         <th>Системное имя</th>
                         <th>Отображаемое имя</th>
+                        <th>Тип</th>
                         </thead>
 
                         <tbody>
@@ -103,6 +104,15 @@
                             <td>{{$permission->id}}</td>
                             <td>{{$permission->name}}</td>
                             <td>{{$permission->title}}</td>
+                            <td>
+                                @if($permission->pivot->type==0)
+                                    public
+                                @elseif($permission->pivot->type==1)
+                                    protected
+                                @else
+                                    private
+                                @endif
+                            </td>
                             <td>
                                 {!! Form::open(array('method'=>'post',"route"=>["edit_role_permissions",$role->id])) !!}
                                 {!! Form::hidden('role_id',$role->id) !!}
@@ -121,7 +131,14 @@
                                 <td>{{$permission->id}}</td>
                                 <td>{{$permission->name}}</td>
                                 <td>{{$permission->title}}</td>
-                             
+                                <td>
+                                    @if($permission->pivot->type==0)
+                                        public
+                                    @elseif($permission->pivot->type==1)
+                                        protected
+                                    @else
+                                        private
+                                    @endif</td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -145,6 +162,24 @@
                             @endif
                         </div>
                     </div>
+                    <div class="form-group @if ($errors->has('type')) has-error  @endif">
+                        <div class="col-sm-4">
+
+                            <select class="form-control" name="type" id="permission_type" >
+
+                                <option value="0">public</option>
+                                <option value="1">protected</option>
+                                <option value="2">private</option>
+
+                            </select>
+                            {{--            {{ Form::text('name',, ['class' => 'form-control','placeholder'=>'Название компании']) }}--}}
+                            @if ($errors->has('type'))
+                                <span class="help-block">
+                                        <strong>{{ $errors->first('type') }}</strong>
+                                    </span>
+                            @endif
+                        </div>
+                    </div>
                     {{ Form::submit('Добавить разрешение',['class'=>'btn btn-primary btn-md']) }}
                     {!! Form::close() !!}
 
@@ -154,6 +189,7 @@
                         <th>id</th>
                         <th>Системное имя</th>
                         <th>Отображаемое имя</th>
+                        <th>Тип</th>
                         </thead>
 
                         <tbody>
@@ -162,6 +198,15 @@
                                 <td>{{$r2->id}}</td>
                                 <td>{{$r2->name}}</td>
                                 <td>{{$r2->title}}</td>
+                                <td>
+                                    @if($r2->pivot->type==0)
+                                        public
+                                    @elseif($r2->pivot->type==1)
+                                        protected
+                                    @else
+                                        private
+                                    @endif
+                                </td>
                                 <td>
                                     {!! Form::open(array('method'=>'post',"route"=>["edit_role_parents",$role->id])) !!}
                                     {!! Form::hidden('role_id',$role->id) !!}
@@ -194,6 +239,24 @@
                             @if ($errors->has('parent_role_id'))
                                 <span class="help-block">
                                         <strong>{{ $errors->first('parent_role_id') }}</strong>
+                                    </span>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="form-group @if ($errors->has('type')) has-error  @endif">
+                        <div class="col-sm-4">
+
+                            <select class="form-control" name="type" id="parent_role_type" >
+
+                                    <option value="0">public</option>
+                                    <option value="1">protected</option>
+                                    <option value="2">private</option>
+
+                            </select>
+                            {{--            {{ Form::text('name',, ['class' => 'form-control','placeholder'=>'Название компании']) }}--}}
+                            @if ($errors->has('type'))
+                                <span class="help-block">
+                                        <strong>{{ $errors->first('type') }}</strong>
                                     </span>
                             @endif
                         </div>

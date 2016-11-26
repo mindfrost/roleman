@@ -15,6 +15,7 @@ class CreateRoleRoleTable extends Migration
         Schema::create('role_role', function (Blueprint $table) {
             $table->integer('parent_role_id')->unsigned();
             $table->integer('role_id')->unsigned();
+            $table->integer('type')->default(0);
             $table->primary(['parent_role_id', 'role_id']);
         });
     }
