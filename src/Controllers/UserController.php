@@ -8,6 +8,7 @@
 namespace LaravelRoles\Roleman\Controllers;
 
 use App\User;
+use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use LaravelRoles\Roleman\Models\Permission;
@@ -53,9 +54,43 @@ class UserController extends Controller
     }
     public function test()
     {
-//        $user=User::find(2);
-        $user=User::find(1);
-        var_dump($user->hasPermission('can_create_roles'));
-        var_dump($user->hasPermission('read_role_list'));
+//        $admin= new \LaravelRoles\Roleman\Models\Role();
+//        $admin->fill([
+//            'name'=>'admin',
+//            'title'=>'Администратор',
+//            'description'=>'Роль администратора системы'
+//        ]);
+//        $admin->save();
+//        $can_create_permission=new \LaravelRoles\Roleman\Models\Permission();
+//        $can_create_permission->fill(
+//            [   'name'=>'can_create_permission',
+//                'title'=>'Создание разрешений',
+//                'description'=>'Разрешение на создание разрешений=)']
+//        );
+//        $can_create_permission->save();
+//
+//        $user= \LaravelRoles\Roleman\Models\Role::where('name','user')->first();
+//        $user->title='Просто пользователь';
+//        $user->save();
+//
+//        $manager_role=\LaravelRoles\Roleman\Models\Role::where('name','manager')->first();
+//        $can_create_permission=\LaravelRoles\Roleman\Models\Permission::where('name','can_create_permission');
+//        $user=\App\User::first();
+//        $user->attachRole($manager_role->id);
+//        $manager_role->attachPermission($can_create_permission->id);
+
+//        $user=User::find(1);
+        $user=User::find(2);
+        $object=new \stdClass();
+        $object->data="Секретные данные";
+        $object->users_id=[2,5,7];
+        if($user->hasAccess('can_read_secret',$object)){
+            //предоставить доступ
+            // выполнить требуемые операции
+            print($object->data);
+        }else{
+            throw new \Exception('Ошибка доступа');
+        }
+
     }
 }

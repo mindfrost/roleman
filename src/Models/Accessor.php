@@ -5,6 +5,7 @@ namespace LaravelRoles\Roleman\Models;
 use Illuminate\Database\Eloquent\Model;
 use  Illuminate\Support\ClassLoader;
 use Illuminate\Support\Facades\Storage;
+use LaravelRoles\Roleman\Accessors;
 class Accessor extends Model
 {
     protected $fillable = [
@@ -43,8 +44,8 @@ class Accessor extends Model
     public function Check(\App\User $user,$object,$permission)
     {
 
-            $class=$this->classname;
-        if (($class)&&$this->load_publish_classes()&&ClassLoader::load($class)&&class_exists($class)) {
+        $class="LaravelRoles\\Roleman\\Accessors\\".$this->classname;
+        if (($this->classname)&&$this->load_publish_classes()&&ClassLoader::load($this->classname)&&class_exists($class)) {
             $accessor=new $class;
         }else{
             if($this->load_default_classes()) {
@@ -54,7 +55,6 @@ class Accessor extends Model
             }
 
         }
-
         $result=$accessor->handle($user,$permission,$object);
         return $result;
     }
